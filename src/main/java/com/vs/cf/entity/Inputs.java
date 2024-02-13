@@ -24,6 +24,8 @@ public class Inputs {
     @ManyToOne
     @JoinColumn(name = "register_id")
     private Register register;
+    @Column(length = 255, nullable = false)
+    private String description;
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
