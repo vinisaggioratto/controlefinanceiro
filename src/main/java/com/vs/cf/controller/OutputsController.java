@@ -1,8 +1,6 @@
 package com.vs.cf.controller;
 
 import com.vs.cf.dto.OutputsDTO;
-import com.vs.cf.dto.RegisterDTO;
-import com.vs.cf.entity.Outputs;
 import com.vs.cf.service.OutputsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
