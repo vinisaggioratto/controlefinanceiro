@@ -83,6 +83,5 @@ public class OutputsService {
             repository.deleteById(id);
             return "Output "+ id +" removed successfully.";
         }
-
     }
 }
