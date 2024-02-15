@@ -1,7 +1,7 @@
 package com.vs.cf.controller;
 
-import com.vs.cf.dto.RegisterDTO;
-import com.vs.cf.service.RegisterService;
+import com.vs.cf.dto.UsersDTO;
+import com.vs.cf.service.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/users")
+public class UsersController {
 
     @Autowired
-    private RegisterService service;
+    private UsersService service;
 
     @GetMapping
     public ResponseEntity getAll() {
@@ -34,30 +34,30 @@ public class RegisterController {
     }
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody RegisterDTO register) {
+    public ResponseEntity save(@Valid @RequestBody UsersDTO users) {
         try {
-            return new ResponseEntity<>(service.save(register), HttpStatus.OK);
+            return new ResponseEntity<>(service.save(users), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("[Error] - " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping
-    public ResponseEntity update(@Valid @RequestBody RegisterDTO register) {
+    public ResponseEntity update(@Valid @RequestBody UsersDTO users) {
         try {
-            return new ResponseEntity<>(service.update(register), HttpStatus.OK);
+            return new ResponseEntity<>(service.update(users), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("[Error] - " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity delete(@PathVariable Long id) {
         service.delete(id);
         try {
-            return new ResponseEntity<>("Register removed successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("User removed successfully.", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("[Error deleting register.] - " + e.getMessage(),
+            return new ResponseEntity<>("[Error deleting user.] - " + e.getMessage(),
                     HttpStatus.BAD_REQUEST);
         }
     }
