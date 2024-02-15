@@ -27,6 +27,7 @@ public class Users {
     @Column(length = 80)
     private String password;
     private Timestamp userUpdate;
+    private Boolean is_active;
 
     public Users(Long id){
         this.id = id;
