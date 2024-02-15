@@ -27,6 +27,6 @@ public class RegisterDTO {
     private String phone;
     private Boolean is_whatts;
     private Boolean is_active;
-    private TypeRegister typeRegister;
     private Timestamp registerUpdate;
+    private TypeRegister typeRegister;
 }
