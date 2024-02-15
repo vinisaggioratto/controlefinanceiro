@@ -23,4 +23,5 @@ public class UsersDTO {
     @NotBlank(message = "Informe uma senha válida.")
     private String password;
     private Timestamp userUpdate;
+    private Boolean is_active;
 }
