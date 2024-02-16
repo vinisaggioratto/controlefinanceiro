@@ -53,8 +53,6 @@ public class OutputsService {
 
     @Transactional
     public OutputsViewDTO save(OutputsDTO outputs) {
-        //Outputs outSave = mapper.map(outputs, Outputs.class);
-        //repository.save(outSave);
         Outputs newOutputs = new Outputs();
         newOutputs.setRegister(outputs.getRegister());
         newOutputs.setDescription(outputs.getDescription());
@@ -69,18 +67,17 @@ public class OutputsService {
         newOutputs.setUsers(outputs.getUsers());
         repository.save(newOutputs);
 
-        for (int i = 1; i <= outputs.getInstallments(); i++){
+        for (int i = 1; i <= outputs.getInstallments(); i++) {
             Double installmentsNumber = Double.valueOf(newOutputs.getInstallments());
             Double valueOutputs = Double.valueOf(String.valueOf(newOutputs.getValue()));
-            Double xx = valueOutputs / installmentsNumber;
-            BigDecimal installmentsValue = BigDecimal.valueOf(xx);
-            //Date vencimento = outputs.getPurchaseDate();
+            Double instValueConvert = valueOutputs / installmentsNumber;
+            BigDecimal installmentsValue = BigDecimal.valueOf(instValueConvert);
             Installments installments = new Installments();
             installments.setOutputs(newOutputs);
             installments.setInstallmentNumber(i);
             installments.setValue(installmentsValue);
             installments.setInstallmentDue(
-                    calcularVencimentoParcela(outputs.getPurchaseDate(), (outputs.getDaysBetweenInstallments()*i)));
+                    calcularVencimentoParcela(outputs.getPurchaseDate(), (outputs.getDaysBetweenInstallments() * i)));
             installments.setUsers(newOutputs.getUsers());
             installmentsService.saveManual(installments);
         }
@@ -114,9 +111,9 @@ public class OutputsService {
         Optional<Outputs> optional = repository.findById(id);
         if (!optional.isPresent()) {
             throw new RuntimeException("Output not found.");
-        }else {
+        } else {
             repository.deleteById(id);
-            return "Output "+ id +" removed successfully.";
+            return "Output " + id + " removed successfully.";
         }
     }
 
