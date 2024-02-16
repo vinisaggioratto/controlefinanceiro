@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -32,7 +32,7 @@ public class Outputs {
     private FormOfPayment formOfPayment;
     private Integer installments;
     private Integer daysBetweenInstallments;
-    private Timestamp purchaseDate;
+    private Date purchaseDate;
     @Column(length = 255, nullable = true)
     private String notes;
     @ManyToOne

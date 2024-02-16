@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -16,6 +18,7 @@ public class InstallmentsDTO {
     private Long id;
     private Outputs outputs;
     private Integer installmentNumber;
-    private Timestamp installmentDue;
+    private BigDecimal value;
+    private Date installmentDue;
     private Users users;
 }

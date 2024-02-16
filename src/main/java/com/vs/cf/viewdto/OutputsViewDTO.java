@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -23,14 +23,14 @@ public class OutputsViewDTO {
     private String formOfPayment;
     private Integer installments;
     private Integer daysBetweenInstallments;
-    private Timestamp purchaseDate;
+    private Date purchaseDate;
     private String notes;
     private String statusPayment;
 
     public OutputsViewDTO(Long id, Register register, String description,
                           BigDecimal value, BigDecimal finalValue, FormOfPayment formOfPayment,
                           Integer installments, Integer daysBetweenInstallments,
-                          Timestamp purchaseDate, String notes, StatusPayment statusPayment) {
+                          Date purchaseDate, String notes, StatusPayment statusPayment) {
         this.id = id;
         this.register = register.getName();
         this.description = description;

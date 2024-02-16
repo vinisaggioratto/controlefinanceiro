@@ -25,7 +25,7 @@ public class InstallmentsService {
         return repository.findAll().stream().map(
                 installments -> new InstallmentsViewDTO(
                         installments.getId(), installments.getOutputs(), installments.getInstallmentNumber(),
-                        installments.getInstallmentDue()
+                        installments.getValue(), installments.getInstallmentDue()
                 )
         ).collect(Collectors.toList());
     }
@@ -38,7 +38,7 @@ public class InstallmentsService {
         Installments installments = optional.get();
         return new InstallmentsViewDTO(
                 installments.getId(), installments.getOutputs(), installments.getInstallmentNumber(),
-                installments.getInstallmentDue()
+                installments.getValue(), installments.getInstallmentDue()
         );
     }
 
@@ -48,7 +48,17 @@ public class InstallmentsService {
         repository.save(instSave);
         return new InstallmentsViewDTO(
                 installments.getId(), installments.getOutputs(), installments.getInstallmentNumber(),
-                installments.getInstallmentDue()
+                installments.getValue(), installments.getInstallmentDue()
+        );
+    }
+
+    @Transactional
+    public InstallmentsViewDTO saveManual(Installments installments) {
+        Installments instSave = mapper.map(installments, Installments.class);
+        repository.save(instSave);
+        return new InstallmentsViewDTO(
+                installments.getId(), installments.getOutputs(), installments.getInstallmentNumber(),
+                installments.getValue(), installments.getInstallmentDue()
         );
     }
 
@@ -62,7 +72,7 @@ public class InstallmentsService {
         repository.save(outSave);
         return new InstallmentsViewDTO(
                 installments.getId(), installments.getOutputs(), installments.getInstallmentNumber(),
-                installments.getInstallmentDue()
+                installments.getValue(), installments.getInstallmentDue()
         );
     }
 

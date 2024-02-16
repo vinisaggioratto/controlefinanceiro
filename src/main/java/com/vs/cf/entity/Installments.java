@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +24,8 @@ public class Installments {
     @JoinColumn(name = "outputs_id")
     private Outputs outputs;
     private Integer installmentNumber;
-    private Timestamp installmentDue;
+    private BigDecimal value;
+    private Date installmentDue;
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
