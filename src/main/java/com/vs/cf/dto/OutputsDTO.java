@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -26,7 +27,7 @@ public class OutputsDTO {
     private FormOfPayment formOfPayment;
     private Integer installments;
     private Integer daysBetweenInstallments;
-    private Timestamp purchaseDate;
+    private Date purchaseDate;
     private String notes;
     private Users users;
     private StatusPayment statusPayment;
