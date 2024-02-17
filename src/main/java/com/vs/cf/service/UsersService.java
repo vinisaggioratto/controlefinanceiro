@@ -1,12 +1,14 @@
 package com.vs.cf.service;
 
+import com.vs.cf.Utils.CurrentDate;
 import com.vs.cf.dto.UsersDTO;
 import com.vs.cf.entity.Users;
+import com.vs.cf.repository.RegisterRepository;
 import com.vs.cf.repository.UsersRepository;
 import com.vs.cf.viewdto.UsersViewDTO;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,26 +17,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.vs.cf.security.WebSecurityConfig.passwordEncoder;
 
 @Service
+@RequiredArgsConstructor
 public class UsersService {
 
-    public PasswordEncoder passwordEncoder() {
+    private final UsersRepository repository;
+    private final RegisterService registerService;
+
+    public PasswordEncoder passwordEncoder(){
 
         return new BCryptPasswordEncoder();
-    }
-
-    ;
-    @Autowired
-    private UsersRepository repository;
+    };
 
     private ModelMapper mapper = new ModelMapper();
 
     public List<UsersViewDTO> getAll() {
         return repository.findAll().stream().map(
                 users -> new UsersViewDTO(
-                        users.getId(), users.getRegister(), users.getUsername(),
+                        users.getId(), users.getRegister().getName(), users.getUsername(),
                         users.getUserUpdate(), users.getIs_active()
                 )
         ).collect(Collectors.toList());
@@ -47,7 +48,7 @@ public class UsersService {
         }
         Users users = optional.get();
         return new UsersViewDTO(
-                users.getId(), users.getRegister(), users.getUsername(),
+                users.getId(), users.getRegister().getName(), users.getUsername(),
                 users.getUserUpdate(), users.getIs_active()
         );
     }
@@ -58,8 +59,14 @@ public class UsersService {
         if (existUser != null) {
             throw new RuntimeException("User already exists!");
         }
-        users.setPassword(passwordEncoder().encode(users.getPassword()));
-        Users userSave = mapper.map(users, Users.class);
+        Users userSave = new Users();
+        userSave.setId(null);
+        userSave.setRegister(registerService.getRegisterFindByName(users.getRegister()));
+        userSave.setUsername(users.getUsername());
+        userSave.setPassword(passwordEncoder().encode(users.getPassword()));
+        userSave.setUserUpdate(CurrentDate.getCurrentTimestamp());
+        userSave.setIs_active(users.getIs_active());
+
         repository.save(userSave);
         return new UsersViewDTO(
                 users.getId(), users.getRegister(), users.getUsername(),
