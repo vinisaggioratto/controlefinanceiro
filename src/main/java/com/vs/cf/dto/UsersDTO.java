@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class UsersDTO {
 
     private Long id;
-    private Register register;
+    private String register;
     @NotBlank(message = "Informe um nome de usuário válido.")
     private String username;
     @NotBlank(message = "Informe uma senha válida.")

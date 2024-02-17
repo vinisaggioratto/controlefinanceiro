@@ -16,10 +16,10 @@ public class UsersViewDTO {
     private Timestamp userUpdate;
     private Boolean is_active;
 
-    public UsersViewDTO(Long id, Register register, String username, Timestamp userUpdate,
+    public UsersViewDTO(Long id, String register, String username, Timestamp userUpdate,
                         Boolean is_active) {
         this.id = id;
-        this.register = register.getName();
+        this.register = register;
         this.username = username;
         this.userUpdate = userUpdate;
         this.is_active = is_active;

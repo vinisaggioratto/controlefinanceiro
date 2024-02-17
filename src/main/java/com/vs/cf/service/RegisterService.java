@@ -47,6 +47,10 @@ public class RegisterService {
         );
     }
 
+    public Register getRegisterFindByName(String name){
+        return repository.findRegisterByName(name);
+    }
+
     @Transactional
     public RegisterViewDTO save(RegisterDTO register) {
         Register regSave = mapper.map(register, Register.class);
